@@ -32,6 +32,7 @@ header button{
 
 main .container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -67,12 +68,13 @@ footer{
     color: white;
 }
 
-.bomb{
+
+.bomb-activate{
     background-color: red;
 }
 
 .hidden{
-    display: none;
+    color: transparent;
 }
 
 .show{
