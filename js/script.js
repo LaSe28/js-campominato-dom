@@ -19,25 +19,24 @@ btnPlay.addEventListener('click', function(){
     switch (difficulty.value){
         case 'hard':
             boxesNum = 49;
-            max = 16
-            boxesSize = 7
-            winPoints = 33
+            max = 49;
+            boxesSize = 7;
+            winPoints = 33;
             break;
         case 'medium':
-            boxesNum = 81
-            max = 81
-            boxesSize = 9
-            winPoints = 65
+            boxesNum = 81;
+            max = 81;
+            boxesSize = 9;
+            winPoints = 65;
             break;
         case 'easy':
-            boxesNum = 100
-            max = 100
-            boxesSize = 10
-            winPoints = 84
+            boxesNum = 100;
+            max = 100;
+            boxesSize = 10;
+            winPoints = 84;
     }
     console.log(boxesNum)
     for ( let m = 1; m <= boxesNum; m++){
-      
         sum += m
         let square = document.createElement(`div`);
         square.classList.add('box')
@@ -48,8 +47,6 @@ btnPlay.addEventListener('click', function(){
                 square.addEventListener('click', bombBoom)
             }
         }
-
-        
         square.style.height = `calc(100% / ${boxesSize})`
         square.style.width = `calc(100% / ${boxesSize})`
         square.innerHTML= m
@@ -57,8 +54,11 @@ btnPlay.addEventListener('click', function(){
             if(!points.includes(m)){
                 points.push(m)
             }
-        })
-
+            if(points.length==winPoints){
+                pointsAlert.innerHTML = `Hai vinto! Hai fatto ${points.length} punti/o!`
+                pointsAlert.classList.remove('hidden')
+            } 
+        }) 
         grid.append(square)
         i = 0
         while (bombList.length < 16){
@@ -69,13 +69,10 @@ btnPlay.addEventListener('click', function(){
             i++
             console.log(bombList)
         }
-        
-        
+       
     }   
     console.log(winPoints)
     console.log(points)
-    
-
 });    
 
 let pointsAlert = document.querySelector('#points')
@@ -92,11 +89,6 @@ function generateRandomNum(min, max) {
     let randomNumber = Math.floor(Math.random()*(max - min + 1) +1 )
     return randomNumber
 }    
-
-
-if(points.length==winPoints){
-        pointsAlert.innerHTML = `Hai vinto! Hai fatto ${points.length} punti/o!`
-    }
 
 
 
