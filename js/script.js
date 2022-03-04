@@ -12,6 +12,8 @@ let difficulty = document.querySelector('#difficulty');
 
 
 btnPlay.addEventListener('click', function(){
+    pointsAlert.classList.add('hidden')
+    let lose = document.querySelector('#lose').classList.add('hidden')
     bombList = []
     points = []
     grid.innerHTML=''
@@ -34,6 +36,8 @@ btnPlay.addEventListener('click', function(){
             max = 100;
             boxesSize = 10;
             winPoints = 84;
+            break;
+
     }
     console.log(boxesNum)
     for ( let m = 1; m <= boxesNum; m++){
@@ -45,20 +49,13 @@ btnPlay.addEventListener('click', function(){
         for (let n = 0 ; n < 16; n++){
             if(bombList[n]== m){
                 square.addEventListener('click', bombBoom)
+                
             }
         }
         square.style.height = `calc(100% / ${boxesSize})`
         square.style.width = `calc(100% / ${boxesSize})`
         square.innerHTML= m
-        square.addEventListener('click', function(){
-            if(!points.includes(m)){
-                points.push(m)
-            }
-            if(points.length==winPoints){
-                pointsAlert.innerHTML = `Hai vinto! Hai fatto ${points.length} punti/o!`
-                pointsAlert.classList.remove('hidden')
-            } 
-        }) 
+        
         grid.append(square)
         i = 0
         while (bombList.length < 16){
@@ -67,9 +64,21 @@ btnPlay.addEventListener('click', function(){
                 bombList.push(num)
             }
             i++
-            console.log(bombList)
         }
-       
+        square.addEventListener('click', function(){
+            if(!points.includes(m)){
+                points.push(m)
+            }
+            if(points.length==winPoints){
+                pointsAlert.innerHTML = `Hai vinto! I tuoi punti: ${points.length}!`
+                pointsAlert.classList.remove('hidden')
+                let squares = document.querySelectorAll('.box')
+                for (let i = 0; i < squares.length; i++){
+                    squares[i].removeEventListener('click', changeColor)
+                    squares[i].removeEventListener('click', bombBoom)   
+                }
+            } 
+        }) 
     }   
     console.log(winPoints)
     console.log(points)
@@ -78,12 +87,18 @@ btnPlay.addEventListener('click', function(){
 let pointsAlert = document.querySelector('#points')
 function changeColor(){
     this.classList.add('active')
+    console.log(points)
 }    
 function bombBoom(){
+    let squares = document.querySelectorAll('.box')
+    for (let i = 0; i < squares.length; i++){
+        squares[i].removeEventListener('click', changeColor)
+        squares[i].removeEventListener('click', bombBoom)
+    }
     this.classList.add('bomb-activate')
     let lose = document.querySelector('#lose').classList.remove('hidden')
     pointsAlert.classList.remove('hidden')
-    pointsAlert.innerHTML = `Hai fatto ${points.length} punti/o!`
+    pointsAlert.innerHTML = `I tuoi punti: ${points.length}`
 }    
 function generateRandomNum(min, max) {
     let randomNumber = Math.floor(Math.random()*(max - min + 1) +1 )

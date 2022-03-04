@@ -32,8 +32,8 @@ header button{
 
 main .container{
     display: flex;
+    padding-top: 10rem;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     height: calc(100vh - 8rem);
@@ -42,6 +42,14 @@ main .container{
 footer{
     height: 4rem;
     background-color: white;
+}
+
+footer .container{
+    width: 900px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    height: 4rem;
 }
 
 .box{
