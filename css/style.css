@@ -32,10 +32,9 @@ header button{
 
 main .container{
     display: flex;
-    padding-top: 10rem;
     flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: center;
     height: calc(100vh - 8rem);
 }
 
